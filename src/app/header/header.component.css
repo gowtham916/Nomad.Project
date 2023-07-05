@@ -1,0 +1,14 @@
+.bg-custom {
+    height: 70px;
+    background-color: #333;
+    color: #fff;
+    opacity: 0.4;
+    /* position: fixed; */
+    /* top: 0px; */
+  }
+
+  a {
+    color: #fff;
+    opacity: 1;
+}
+  

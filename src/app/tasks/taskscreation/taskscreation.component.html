@@ -1,0 +1,40 @@
+<div class="background-image">
+  <!-- Place the blurred image as the background -->
+</div>
+
+<div class="card-container">
+  <div class="card">
+    <div class="card-body">
+      <form (submit)="onAddPost(postForm)" #postForm="ngForm">
+        <div class="form-group">
+          <label for="title">Task Title</label>
+          <input
+            class="form-control"
+            type="text"
+            id="title"
+            name="title"
+            ngModel
+            required
+            minlength="3"
+            placeholder="Task Title"
+            #title="ngModel">
+          <div *ngIf="title.invalid" class="text-danger">Please enter your Task.</div>
+        </div>
+        <div class="form-group">
+          <label for="content">Description</label>
+          <textarea
+            class="form-control"
+            rows="4"
+            id="content"
+            name="content"
+            ngModel
+            required
+            placeholder="Description"
+            #content="ngModel"></textarea>
+          <div *ngIf="content.invalid" class="text-danger">Please enter the details.</div>
+        </div>
+        <button class="btn btn-primary" type="submit">Save Task</button>
+      </form>
+    </div>
+  </div>
+</div>

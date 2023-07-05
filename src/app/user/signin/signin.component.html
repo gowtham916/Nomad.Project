@@ -1,0 +1,39 @@
+<div class="background-image">
+  <!-- Place the blurred image as the background -->
+</div>
+
+<div  class="container mt-5 mx-auto px-4 py-5 rounded" style="max-width: 300px; height: 450px; border: 1px solid #ccc;">
+    <img src="../../../../images/Nomadlogo.png" alt="">
+    <h2 class="text-center mb-3">Sign in</h2>
+    <form #sellerLogin="ngForm" (ngSubmit)="login(sellerLogin.value)"  novalidate>
+      <div class="text-danger" *ngIf="loginFail">
+        Invalid email address or password.
+      </div> 
+      <div class="form-group">
+        <label for="email">Email:</label>
+        <input type="email" class="form-control" placeholder="Enter your email" name="email" ngModel email>
+  
+        <div *ngIf="sellerLogin.controls['email']?.invalid && (sellerLogin.controls['email'].dirty || sellerLogin.controls['email'].touched)" class="text-danger">
+  
+          <div *ngIf="sellerLogin.controls['email']?.errors?.['required']">
+            Email is required.
+          </div>
+          <div *ngIf="sellerLogin.controls['email']?.errors?.['email']">
+            Invalid email address.
+          </div>        
+        </div>
+      </div>
+      
+      <div class="form-group">
+        <label for="password">Password:</label>
+        <input type="password" class="form-control" name="password" placeholder="Enter your password" ngModel required minlength="6">
+        <div *ngIf="sellerLogin.controls['password'].invalid && (sellerLogin.controls['password'].dirty || sellerLogin.controls['password'].touched)" class="text-danger">
+          <div *ngIf="sellerLogin.controls['password']?.errors?.['minlength']">
+            Password must be at least 6 characters long.
+          </div>        
+        </div>
+      </div>   
+      <button type="submit" class="btn btn-primary btn-block mt-4" [disabled]="!sellerLogin.valid">Sign In</button>
+      
+    </form>
+  </div>
