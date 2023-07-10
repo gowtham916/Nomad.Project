@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
 
 const ACCESS_TOKEN = 'access_token';
 const REFRESH_TOKEN = 'refresh_token';
@@ -9,6 +10,10 @@ const REFRESH_TOKEN = 'refresh_token';
 
 
 export class TokenService {
+  setLoggedIn(value: boolean) {
+    throw new Error('Method not implemented.');
+  }
+  isLoggedIn$!: BehaviorSubject<boolean>;
   
   
   constructor() { }

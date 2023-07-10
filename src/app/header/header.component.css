@@ -1,5 +1,5 @@
 .bg-custom {
-    height: 70px;
+    height: 85px;
     background-color: #333;
     color: #fff;
     opacity: 0.4;
@@ -11,4 +11,9 @@
     color: #fff;
     opacity: 1;
 }
+
+.logo{
+  height: 42px;
+  width: 116px;
+ }
   

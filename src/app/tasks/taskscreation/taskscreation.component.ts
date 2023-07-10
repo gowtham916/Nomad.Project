@@ -11,27 +11,19 @@ import { signUp } from 'data-types';
   styleUrls: ['./taskscreation.component.css']
 })
 export class TaskscreationComponent {
-  // enteredTitle = "";
-  // enteredContent = "";
-  // public users:any = [];
-  // constructor(public taskservice:TasksService,public user:UserService){}
+ 
+  enteredTitle = "";
+  enteredContent = "";
+  
+  constructor(public taskService: TasksService) {}
 
-  getUser(){
-    // this.user.getUser().subscribe(transformedUser=>{
-    //   this.users=transformedUser;
-    // })
+  onAddTask(form: NgForm) {
+    console.log('button clicked');
+    if (form.invalid) {
+      return;
+    }
+    this.taskService.addTask(form.value.title, form.value.content);
+    form.resetForm();
   }
-
-  onAddPost(form: NgForm) {
-    // const userId:string = this.users.userId;
-    // this.getUser();
-    // if (form.invalid) {
-    //   return;
-    // }
-    // this.taskservice.addtask(form.value.title, form.value.content,userId);
-    // form.resetForm();
-
-  }
-
 
 }

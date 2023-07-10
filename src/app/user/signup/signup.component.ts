@@ -3,6 +3,8 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { Router } from '@angular/router';
 import { signUp } from '../../../../data-types';
 import { UserService } from '../user.service';
+import { catchError } from 'rxjs/operators';
+import { throwError } from 'rxjs';
 
 @Component({
   selector: 'app-signup',
@@ -11,6 +13,8 @@ import { UserService } from '../user.service';
 })
 export class SignupComponent implements OnInit {
   signUpForm: FormGroup;
+
+  signInError!: boolean;
 
   constructor(private user:UserService,private fb: FormBuilder, private router: Router) {
     this.signUpForm = this.fb.group({
@@ -22,16 +26,28 @@ export class SignupComponent implements OnInit {
 
   ngOnInit(): void {}
 
+ 
+
   signUp(data: signUp): void {
-    console.log('butn clicked')
+    console.log('button clicked');
     console.log(data);
-    this.user.userSignUp(data).subscribe((result) => {
-      console.warn(result.body);
-      if (result) {
-        this.router.navigate(['/success']);
-      }
-    });
+    this.user.userSignUp(data)
+      .pipe(
+        catchError((error) => {
+          console.error('An error occurred during sign up:', error);
+          this.signInError = true;
+          // Handle the error here (e.g., display an error message to the user)
+          return throwError('Sign up failed. Please try again.');
+        })
+      )
+      .subscribe((result) => {
+        console.warn(result.body);
+        if (result) {
+          this.router.navigate(['/success']);
+        }
+      });
   }
+  
 
   openSignIn(): void {
     this.router.navigate(['/']);

@@ -5,6 +5,9 @@
     <img src="../../../../images/Nomadlogo.png" alt="">
       <h2 class="text-center mb-3">Sign Up</h2>
       <form #sellerSignUp="ngForm" (ngSubmit)="signUp(sellerSignUp.value)"  novalidate>
+        <div class="text-danger" *ngIf="signInError">
+          You Allready have an account.Use another email.
+        </div> 
         <div class="form-group">
           <label for="name">Name:</label>
           <input type="text" class="form-control" name="name" placeholder="Enter your name" ngModel required>

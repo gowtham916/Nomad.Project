@@ -2,7 +2,7 @@
   <nav class="navbar navbar-expand-lg bg-custom">
     <div class="container-fluid">
       <!-- Logo -->
-      <a class="navbar-brand" routerLink="/">Navbar</a>
+      <img class="logo" src="../../logo/logonomad.jpg"  />
         
       <!-- Toggler Button -->
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -19,6 +19,9 @@
             <a class="nav-link" (click)="taskcreate()">CREATE</a>
           </li>
           <li class="nav-item">
+            <a class="nav-link">{{ userNameValue | titleCase }}</a>
+          </li>
+          <li class="nav-item">
             <a class="nav-link" (click)="logout()">LogOut</a>
           </li>
         </ul>
@@ -30,7 +33,7 @@
   <nav class="navbar navbar-expand-lg bg-custom">
     <div class="container-fluid">
       <!-- Logo -->
-      <a class="navbar-brand" routerLink="/">Navbar</a>
+      <img class="logo" src="../../logo/logonomad.jpg" />
         
       <!-- Toggler Button -->
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">

@@ -10,7 +10,7 @@ import { SignupComponent } from './user/signup/signup.component';
 import { FormsModule } from '@angular/forms';
 import { WelcomeComponent } from './user/welcome/welcome.component';
 import { TasksListComponent } from './tasks/tasks-list/tasks-list.component';
-
+import {MatIconModule} from '@angular/material/icon';
 import { HeaderComponent } from './header/header.component';
 import { MatInputModule } from '@angular/material/input';
 import {MatButtonModule} from '@angular/material/button';
@@ -18,6 +18,9 @@ import {MatCardModule} from '@angular/material/card';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatExpansionModule} from '@angular/material/expansion';
 import { TaskscreationComponent } from './tasks/taskscreation/taskscreation.component';
+import { TitleCasePipe } from './title-case.pipe';
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -26,7 +29,8 @@ import { TaskscreationComponent } from './tasks/taskscreation/taskscreation.comp
     WelcomeComponent,
     TasksListComponent,
     TaskscreationComponent,
-    HeaderComponent
+    HeaderComponent,
+    TitleCasePipe
   ],
   imports: [
     BrowserModule,
@@ -34,7 +38,8 @@ import { TaskscreationComponent } from './tasks/taskscreation/taskscreation.comp
     NgbModule,
     BrowserAnimationsModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    MatIconModule
   ],
   providers: [],
   bootstrap: [AppComponent]

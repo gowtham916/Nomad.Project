@@ -2,48 +2,49 @@
   <!-- Place the blurred image as the background -->
 </div>
 
-    <div *ngIf="posts.length > 0">
-    <section id="active-projects">
-      <header>
-        <h2>Active Tasks</h2>
-      </header>
-      <ul *ngFor="let post of posts">
-        <li
-          id="{{ post.id }}"
-          data-extra-info="Got lifetime access, but would be nice to finish it soon!"
-          class="card"
-          draggable="true"
-        >
-          <h2>{{ post.title }}</h2>
-          <p>{{ post.content }}</p>
-          <button class="alt">More Info</button>
-          <button (click)="finishedPosts(post.id)" >Finish</button>
-        </li>
-      </ul>
-    </section>
-    </div>
-  <div *ngIf="compltedPosts.length > 0">
-    <section id="active-projects">
-      <header>
-        <h2>Finished Tasks</h2>
-      </header>
-      <ul *ngFor="let compltedPost of compltedPosts">
-        <li
-          id="{{ compltedPost.id }}"
-          data-extra-info="Got lifetime access, but would be nice to finish it soon!"
-          class="card"
-          draggable="true"
-        >
-          <h2>{{ compltedPost.title }}</h2>
-          <p>{{ compltedPost.content }}</p>
-          <button class="alt">More Info</button>
-          <button (click)="onDelete(compltedPost.id)" >DELETE</button>
-        </li>
-      </ul>
-    </section>
-</div>
-<div *ngIf="posts.length == 0">
-    <p class="info-text mat-body-1" *ngIf="posts.length <= 0">No posts added yet!</p>
-</div>
 
-  
+<div  *ngIf="tasks.length > 0">
+  <section id="active-projects">
+    <header>
+      <h2>Active Tasks</h2>
+    </header>
+    <ul *ngFor="let task of tasks">
+      <li
+        class="li"
+        id="{{ task.id }}"
+        data-extra-info="Got lifetime access, but would be nice to finish it soon!"
+        class="card"
+        draggable="true"
+      >
+        <h2>{{ task.title }}</h2>
+        <p>{{ task.content }}</p>
+       
+        <button (click)="finishedPosts(task.id)" >Finish</button>
+      </li>
+    </ul>
+  </section>
+</div>
+ <div *ngIf="compltedtasks.length > 0">
+  <section id="active-projects">
+    <header>
+      <h2>Finished Tasks</h2>
+    </header>
+    <ul *ngFor="let compltedtask of compltedtasks">
+      <li
+        class="li"
+        id="{{ compltedtask.id }}"
+        data-extra-info="Got lifetime access, but would be nice to finish it soon!"
+        class="card"
+        draggable="true"
+      >
+        <h2>{{ compltedtask.title }}</h2>
+        <p>{{ compltedtask.content }}</p>
+       
+        <button (click)="onDelete(compltedtask.id)" >DELETE</button>
+      </li>
+    </ul>
+  </section>
+</div>
+<div *ngIf="tasks.length == 0 && compltedtasks.length == 0">
+  <p class="info-text mat-body-1" *ngIf="tasks.length <= 0">No posts added yet!</p>
+</div>
