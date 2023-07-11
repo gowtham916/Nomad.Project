@@ -1,0 +1,57 @@
+<div class="background-image">
+    <!-- Place the blurred image as the background -->
+</div>
+  
+  <div class="card-container">
+    <div class="card">
+      <div class="card-body">
+        <form (submit)="onUpdateTask(postForm.value)" #postForm="ngForm">
+          <div class="form-group">
+            
+            <input
+             class="form-control"
+             type="text"
+             id="title"
+             name="title"
+             [(ngModel)]="taskdata.title"
+             required
+             minlength="3"
+             placeholder="Task Title"
+             #title="ngModel">
+            <div *ngIf="title.invalid" class="text-danger">Please enter your Task.</div>
+          </div>
+          <div class="form-group">
+           
+            <textarea
+             class="form-control"
+             rows="4"
+             id="content"
+             name="content"
+             [(ngModel)]="taskdata.content"
+             required
+             placeholder="Description"
+             #content="ngModel"></textarea>
+            <div *ngIf="content.invalid" class="text-danger">Please enter the details.</div>
+          </div>
+          <button class="btn btn-primary" type="submit">Update Task</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal" tabindex="-1" role="dialog" [ngClass]="{'d-block': isTaskUpdated}">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header bg-primary">
+          <h5 class="modal-title">Task Updated</h5>
+        </div>
+        <div class="modal-body">
+          <p>Your Task has been updated successfully.</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="isTaskUpdate()">OK</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  

@@ -18,11 +18,15 @@
       >
         <h2>{{ task.title }}</h2>
         <p>{{ task.content }}</p>
-       
-        <button (click)="finishedPosts(task.id)" >Finish</button>
+  
+        <div>
+          <button (click)="finishedPosts(task.id)">Finish</button>
+          <button routerLink="/creation/update/{{task.id}}">Edit</button>
+        </div>
       </li>
     </ul>
   </section>
+  
 </div>
  <div *ngIf="compltedtasks.length > 0">
   <section id="active-projects">

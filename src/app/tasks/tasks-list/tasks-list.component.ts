@@ -57,6 +57,10 @@ export class TasksListComponent implements OnInit {
     }
     this.gettasks;
   }
+
+  editTask(taskId: string) {
+    
+  }
   
 
   ngOnDestroy() {

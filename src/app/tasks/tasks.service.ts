@@ -47,7 +47,18 @@ export class TasksService {
         })
       );
   }
-  
+
+  getTask(id: string) {
+    console.log(id);
+    
+    return this.http.get<any>("http://localhost:3000/api/tasks/" + id);
+  }
+  updateTasks(title:string,content:string,taskId:string) {
+    const task:any = {_id:taskId,title:title,content:content};
+    console.warn(taskId);
+    console.log(task);
+    return this.http.put<any>("http://localhost:3000/api/tasks/" + taskId, task);
+  }
   
    getPostUpdateListener() {
     return this.tasksUpdated.asObservable();

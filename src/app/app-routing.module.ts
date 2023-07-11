@@ -6,6 +6,7 @@ import { WelcomeComponent } from './user/welcome/welcome.component';
 import { TasksListComponent } from './tasks/tasks-list/tasks-list.component';
 import { TaskscreationComponent } from './tasks/taskscreation/taskscreation.component';
 import { AuthGuard } from './auth.guard';
+import { UpdateComponent } from './tasks/update/update.component';
 
 
 const routes: Routes = [
@@ -30,6 +31,11 @@ const routes: Routes = [
   {
     component: TaskscreationComponent,
     path: 'creation',
+    canActivate:[AuthGuard]
+  },
+  {
+    component: UpdateComponent,
+    path: 'creation/update/:id',
     canActivate:[AuthGuard]
   }
 

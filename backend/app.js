@@ -105,11 +105,27 @@ app.get('/api/tasks', async (req, res) => {
   const { userId } = req.query;
   try {
     const tasks = await Task.find({ userId: userId }).exec();
-    res.status(200).json({ message: 'Success', tasks: tasks });
+    res.status(200).json({ message: 'Success get all', tasks: tasks });
   } catch (error) {
     res.status(500).json({ message: 'Error retrieving posts', error: error });
   }
 });
+
+app.get('/api/tasks/:id', async (req, res) => {
+  const taskId = req.params.id;
+  console.log(taskId);
+  try {
+     const task = await Task.findOne({ _id: taskId }).exec();
+     if (task) {
+        res.status(200).json({ message: 'Success get one', tasks: task });
+     } else {
+        res.status(404).json({ message: 'Task not found' });
+     }
+  } catch (error) {
+     res.status(500).json({ message: 'Error retrieving task', error: error });
+  }
+});
+
 
 app.patch("/api/tasks/:id", (req, res, next) => {
   const taskId = req.params.id;
@@ -127,6 +143,20 @@ app.patch("/api/tasks/:id", (req, res, next) => {
       res.status(500).json({ message: "An error occurred during the update process." });
     });
 });
+
+app.put("/api/tasks/:id",(req, res, next)=>{
+  const taskId = req.params.id;
+  const newTitle = req.body.title;
+  const newContent = req.body.content;
+  Task.updateOne({ _id: taskId }, { title: newTitle }, {content: newContent})
+  .then(result => {
+    res.status(200).json({ message: "Update successful!" });
+    console.log('updated');
+  })
+  .catch(error => {
+    res.status(500).json({ message: "An error occurred during the update process." });
+  });
+})
 
 app.post("/api/users/oauth/token", (req, res, next) => {
   const email = req.body.username;

@@ -19,6 +19,8 @@ import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatExpansionModule} from '@angular/material/expansion';
 import { TaskscreationComponent } from './tasks/taskscreation/taskscreation.component';
 import { TitleCasePipe } from './title-case.pipe';
+import { UpdateComponent } from './tasks/update/update.component';
+
 
 
 @NgModule({
@@ -30,7 +32,8 @@ import { TitleCasePipe } from './title-case.pipe';
     TasksListComponent,
     TaskscreationComponent,
     HeaderComponent,
-    TitleCasePipe
+    TitleCasePipe,
+    UpdateComponent
   ],
   imports: [
     BrowserModule,

@@ -24,7 +24,12 @@ export class SigninComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log(this.user.userEntered);
+    const token = localStorage.getItem('access_token'); 
+
+    if (token) {
+      // User has a valid token, navigate to the "home" route
+      this.router.navigate(['/home']);
+    }
   }
 
   login(data: any): void {
