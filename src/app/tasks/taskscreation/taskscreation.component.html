@@ -5,35 +5,32 @@
 <div class="card-container">
   <div class="card">
     <div class="card-body">
-      <form (submit)="onAddTask(postForm)" #postForm="ngForm">
-        <div class="form-group">
-          <label for="title">Task Title</label>
-          <input
-            class="form-control"
-            type="text"
-            id="title"
-            name="title"
-            ngModel
-            required
-            minlength="3"
-            placeholder="Task Title"
-            #title="ngModel">
-          <div *ngIf="title.invalid" class="text-danger">Please enter your Task.</div>
+      <form (submit)="onAddTask(postForm)" #postForm="ngForm" novalidate>
+        <div class="text-danger" *ngIf="postForm.invalid && (postForm.submitted || postForm.dirty)">
+          Please fill in all required fields correctly.
         </div>
         <div class="form-group">
-          <label for="content">Description</label>
-          <textarea
-            class="form-control"
-            rows="4"
-            id="content"
-            name="content"
-            ngModel
-            required
-            placeholder="Description"
-            #content="ngModel"></textarea>
-          <div *ngIf="content.invalid" class="text-danger">Please enter the details.</div>
+          <label for="title">Task Title:</label>
+          <input class="form-control" type="text" id="title" name="title" ngModel required minlength="3" placeholder="Task Title" #title="ngModel">
+          <div *ngIf="postForm.controls['title'].invalid && (postForm.controls['title'].dirty || postForm.controls['title'].touched)" class="text-danger">
+            <div *ngIf="postForm.controls['title'].errors?.['required']">
+              Task title is required.
+            </div>
+            <div *ngIf="postForm.controls['title'].errors?.['minlength']">
+              Task title must be at least 3 characters long.
+            </div>
+          </div>
         </div>
-        <button class="btn btn-primary" type="submit">Save Task</button>
+        <div class="form-group">
+          <label for="content">Description:</label>
+          <textarea class="form-control" rows="4" id="content" name="content" ngModel required placeholder="Description" #content="ngModel"></textarea>
+          <div *ngIf="postForm.controls['content'].invalid && (postForm.controls['content'].dirty || postForm.controls['content'].touched)" class="text-danger">
+            <div *ngIf="postForm.controls['content'].errors?.['required']">
+              Description is required.
+            </div>
+          </div>
+        </div>
+        <button class="btn btn-primary btn-block mt-4" type="submit" [disabled]="!postForm.valid">Save Task</button>
       </form>
     </div>
   </div>

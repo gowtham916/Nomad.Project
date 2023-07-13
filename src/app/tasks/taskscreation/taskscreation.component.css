@@ -9,26 +9,47 @@
   filter: blur(3px); /* Apply the blur effect to the background image */
   z-index: -1;
 }
+body{
+  justify-content: center;
+  align-items: center;
+}
 
-  .container-element {
-    overflow: hidden;
-  }
+.container-element {
+  overflow: hidden;
+}
+
+.card-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  overflow: hidden;
+  border: 1px solid #ccc;
+  max-width: 300px;
+  height: 400px;
+  padding: 20px;
+  border-radius: 5px;
+  margin-left: 450px;
+  margin-top: 15px;
+}
+
+.card {
+  width: 400px;
+  background-color: rgba(65, 41, 41, 0.4); /* Use RGBA color with opacity */
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  color: aliceblue;
+}
+
+.card-body {
+  background-color: rgba(0, 0, 0, 0.05); /* Set a background color with a low opacity for card contents */
+  padding: 20px;
+  border-radius: 10px;
+}
+
+
   
-  .card-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    overflow: hidden; /* Add this line to hide the scrollbar */
-  }
-  
-  .card {
-    width: 400px;
-    background-color: white;
-    border-radius: 10px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    padding: 20px;
-  }
   
   /* Additional styling for the card */
   

@@ -20,7 +20,8 @@ import {MatExpansionModule} from '@angular/material/expansion';
 import { TaskscreationComponent } from './tasks/taskscreation/taskscreation.component';
 import { TitleCasePipe } from './title-case.pipe';
 import { UpdateComponent } from './tasks/update/update.component';
-
+import {MatTabsModule} from '@angular/material/tabs';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
 
 
 @NgModule({
@@ -33,7 +34,8 @@ import { UpdateComponent } from './tasks/update/update.component';
     TaskscreationComponent,
     HeaderComponent,
     TitleCasePipe,
-    UpdateComponent
+    UpdateComponent,
+    
   ],
   imports: [
     BrowserModule,
@@ -42,7 +44,9 @@ import { UpdateComponent } from './tasks/update/update.component';
     BrowserAnimationsModule,
     FormsModule,
     HttpClientModule,
-    MatIconModule
+    MatIconModule,
+    MatTabsModule,
+    MatButtonToggleModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -2,53 +2,65 @@
   <!-- Place the blurred image as the background -->
 </div>
 
+<mat-tab-group animationDuration="2000ms">
+  <mat-tab class="tab1" label="Active tasks"> <div class="container">
+    <!-- <div class="articles-container"> -->
+      <div class="left-column">
+        <div class="content">
+          <div class="title">
+            <h2 class="tit">Active tasks</h2>
+          </div>
+          <div class="tasks">
+            <div class="card" *ngFor="let task of tasks">
+              <h3>{{ task.title }}</h3>
+              <p>{{ task.content }}</p>
+              <div class="button-container">
+                <button (click)="finishedPosts(task.id)" class="button finish-button">Finish</button>
+                <button [routerLink]="'/creation/update/' + task.id" class="button edit-button">Edit</button>
 
-<div  *ngIf="tasks.length > 0">
-  <section id="active-projects">
-    <header>
-      <h2>Active Tasks</h2>
-    </header>
-    <ul *ngFor="let task of tasks">
-      <li
-        class="li"
-        id="{{ task.id }}"
-        data-extra-info="Got lifetime access, but would be nice to finish it soon!"
-        class="card"
-        draggable="true"
-      >
-        <h2>{{ task.title }}</h2>
-        <p>{{ task.content }}</p>
-  
-        <div>
-          <button (click)="finishedPosts(task.id)">Finish</button>
-          <button routerLink="/creation/update/{{task.id}}">Edit</button>
+              </div>
+            </div>
+           
+            
+            <p class="info-text mat-body-1" *ngIf="tasks.length <= 0">No active tasks.</p>
+          </div>
+          <ul class="pagination">
+            <li><a href="#">1</a></li>
+            <li><a href="#">2</a></li>
+            <li><a href="#">3</a></li>
+            <!-- Add more page links as needed -->
+          </ul>
         </div>
-      </li>
-    </ul>
-  </section>
+      </div>
+      
+      
+    <!-- </div> -->
+  </div> </mat-tab>
+  <mat-tab class="tab2" label="Finished tasks"> <div class="right-column">
+    <div class="content">
+      <div class="title">
+        <h2 class="tit">Finished tasks</h2>
+      </div>
+      <div class="tasks">
+        <div class="card" *ngFor="let compltedtask of compltedtasks">
+          <h3>{{ compltedtask.title }}</h3>
+          <p>{{ compltedtask.content }}</p>
+          <button (click)="onDelete(compltedtask.id)" class="button delete-button">DELETE</button>
+
+        </div>
+        <p class="info-text mat-body-1" *ngIf="compltedtasks.length <= 0">No finished tasks.</p>
+      </div>
+      <ul class="pagination">
+        <li><a href="#">1</a></li>
+        <li><a href="#">2</a></li>
+        <li><a href="#">3</a></li>
+        <!-- Add more page links as needed -->
+      </ul>
+    </div>
+  </div> </mat-tab>
   
-</div>
- <div *ngIf="compltedtasks.length > 0">
-  <section id="active-projects">
-    <header>
-      <h2>Finished Tasks</h2>
-    </header>
-    <ul *ngFor="let compltedtask of compltedtasks">
-      <li
-        class="li"
-        id="{{ compltedtask.id }}"
-        data-extra-info="Got lifetime access, but would be nice to finish it soon!"
-        class="card"
-        draggable="true"
-      >
-        <h2>{{ compltedtask.title }}</h2>
-        <p>{{ compltedtask.content }}</p>
-       
-        <button (click)="onDelete(compltedtask.id)" >DELETE</button>
-      </li>
-    </ul>
-  </section>
-</div>
-<div *ngIf="tasks.length == 0 && compltedtasks.length == 0">
-  <p class="info-text mat-body-1" *ngIf="tasks.length <= 0">No posts added yet!</p>
-</div>
+</mat-tab-group>
+
+ 
+  
+
