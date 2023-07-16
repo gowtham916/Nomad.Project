@@ -1,3 +1,4 @@
+<div class="loading-ring" *ngIf="loading"></div>
 <div class="background-image">
   <!-- Place the blurred image as the background -->
 </div>
@@ -12,7 +13,7 @@
           </div>
           <div class="tasks">
             <div class="card" *ngFor="let task of tasks">
-              <h3>{{ task.title }}</h3>
+              <h3>{{ task.title }}</h3> 
               <p>{{ task.content }}</p>
               <div class="button-container">
                 <button (click)="finishedPosts(task.id)" class="button finish-button">Finish</button>
@@ -24,12 +25,19 @@
             
             <p class="info-text mat-body-1" *ngIf="tasks.length <= 0">No active tasks.</p>
           </div>
-          <ul class="pagination">
+          <!-- <mat-paginator class="pagination2" [length]="tasks.length" [pageSizeOptions]="pageSizeOptions" (page)="onChangedPage($event)"  *ngIf="tasks.length > 0">
+          </mat-paginator>
+          
+           -->
+           <mat-paginator class="pagination2" [length]="totalTasks" [pageSize]="taskPerPage" [pageSizeOptions]="pageSizeOptions" (page)="onChangedPage($event)"
+           *ngIf="tasks.length > 0" animationDuration="2000ms"></mat-paginator>
+          <!-- <mat-paginator [length]="tasks.length" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions"></mat-paginator> -->
+          <!-- <ul class="pagination">
             <li><a href="#">1</a></li>
             <li><a href="#">2</a></li>
             <li><a href="#">3</a></li>
-            <!-- Add more page links as needed -->
-          </ul>
+            
+          </ul> -->
         </div>
       </div>
       
@@ -50,12 +58,16 @@
         </div>
         <p class="info-text mat-body-1" *ngIf="compltedtasks.length <= 0">No finished tasks.</p>
       </div>
-      <ul class="pagination">
+      <mat-paginator class="pagination2" [length]="totalFinishedTasks" [pageSize]="cmpltdTaksperPage" [pageSizeOptions]="pageSizeOptions" (page)="onChangedPageF($event)"
+           *ngIf="tasks.length > 0" animationDuration="2000ms"></mat-paginator>
+      
+      <!-- <mat-paginator [length]="compltedtasks.length" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions"></mat-paginator> -->
+      <!-- <ul class="pagination">
         <li><a href="#">1</a></li>
         <li><a href="#">2</a></li>
         <li><a href="#">3</a></li>
-        <!-- Add more page links as needed -->
-      </ul>
+        
+      </ul> -->
     </div>
   </div> </mat-tab>
   

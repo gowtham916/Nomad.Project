@@ -22,8 +22,9 @@ import { TitleCasePipe } from './title-case.pipe';
 import { UpdateComponent } from './tasks/update/update.component';
 import {MatTabsModule} from '@angular/material/tabs';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
-
-
+import {MatPaginatorModule} from '@angular/material/paginator';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { SearchComponent } from './search/search.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -35,6 +36,7 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
     HeaderComponent,
     TitleCasePipe,
     UpdateComponent,
+    SearchComponent,
     
   ],
   imports: [
@@ -47,6 +49,8 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
     MatIconModule,
     MatTabsModule,
     MatButtonToggleModule,
+    MatPaginatorModule,
+    MatProgressSpinnerModule
   ],
   providers: [],
   bootstrap: [AppComponent]

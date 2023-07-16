@@ -48,6 +48,7 @@ export class UpdateComponent implements OnInit {
       this.isTaskUpdated = false;
     },3000)
     
+    
   }
   isTaskUpdate(){
     this.isTaskUpdated = false;

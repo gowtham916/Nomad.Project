@@ -1,0 +1,27 @@
+/* search.component.css */
+.search-container {
+    display: flex;
+    align-items: center;
+  }
+  
+  .search-input {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-right: 10px;
+    width: 250px; /* Adjust the width as per your preference */
+  }
+  
+  .search-button {
+    padding: 8px 16px;
+    background-color: #723131;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .search-button:hover {
+    background-color: #555555;
+  }
+  

@@ -102,14 +102,73 @@ app.post("/api/tasks", async (req, res, next) => {
 });
 
 app.get('/api/tasks', async (req, res) => {
-  const { userId } = req.query;
+  const userId = req.query.userId;
+  const pageSize = +req.query.pagesize;
+  const currentPage = +req.query.page;
+  const pagesizeF = +req.query.pagesize2;
+  const currentPageF = +req.query.page2;
+  const searchTerm = req.query.q;
+
   try {
-    const tasks = await Task.find({ userId: userId }).exec();
-    res.status(200).json({ message: 'Success get all', tasks: tasks });
+
+    const queryP = {
+      userId: userId,
+      status: "PENDING",
+      $or: [
+        { title: { $regex: searchTerm, $options: "i" } }, 
+        { content: { $regex: searchTerm, $options: "i" } }
+      ]
+    };
+
+    const queryF = {
+      userId: userId,
+      status: "FINISHED",
+      $or: [
+        { title: { $regex: searchTerm, $options: "i" } }, // Search in the title field
+        { content: { $regex: searchTerm, $options: "i" } } // Search in the description field
+      ]
+    };
+    // Fetch pending tasks
+    const pendingTasksQuery = Task.find(queryP);
+
+    if (pageSize && currentPage) {
+      pendingTasksQuery.skip(pageSize * (currentPage - 1)).limit(pageSize);
+    }
+
+    const fetchedTasks = await pendingTasksQuery.exec();
+    const count = await Task.count(queryP).exec();
+
+    // Fetch finished tasks
+    const finishedTasksQuery = Task.find(queryF);
+
+    if (pagesizeF && currentPageF) {
+      finishedTasksQuery.skip(pagesizeF * (currentPageF - 1)).limit(pagesizeF);
+    }
+
+    const fetchedTasksF = await finishedTasksQuery.exec();
+    const countF = await Task.count(queryF).exec();
+
+    // Check if the arrays have data
+    const hasDataPendingTasks = fetchedTasks.length > 0;
+    const hasDataFinishedTasks = fetchedTasksF.length > 0;
+
+    res.status(200).json({
+      message: "Tasks fetched successfully!",
+      hasDataPendingTasks: hasDataPendingTasks,
+      tasks: fetchedTasks,
+      totalTasks: count,
+      hasDataFinishedTasks: hasDataFinishedTasks,
+      taskF: fetchedTasksF,
+      totalTasksF: countF
+    });
   } catch (error) {
-    res.status(500).json({ message: 'Error retrieving posts', error: error });
+    res.status(500).json({
+      message: "Failed to fetch tasks.",
+      error: error.message
+    });
   }
 });
+
 
 app.get('/api/tasks/:id', async (req, res) => {
   const taskId = req.params.id;

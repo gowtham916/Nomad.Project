@@ -13,6 +13,9 @@
       <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
         <ul class="navbar-nav">
           <li class="nav-item">
+            <app-search class="search-bar" (searchRequested)="onSearch($event)"></app-search>
+          </li>
+          <li class="nav-item">
             <a class="nav-link" routerLink="home">MY TASKS</a>
           </li>
           <li class="nav-item">

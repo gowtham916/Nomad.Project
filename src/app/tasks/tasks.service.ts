@@ -23,30 +23,56 @@ export class TasksService {
       localStorage.setItem('userId', userId); // Store userId in local storage
     });
   }
-  getTasks(): Observable<Task[]> {
-    const url = `http://localhost:3000/api/tasks?userId=${this.userId}`;
-    return this.http
-      .get<{ message: string; tasks: any[] }>(url)
-      .pipe(
-        map((taskData) => {
-          const tasks = taskData.tasks.map((task: any) => {
-            return {
-              id: task._id,
-              title: task.title,
-              content: task.content,
-              status: task.status,
-              userId: task.userId,
-            };
-          });
-          this.tasks = tasks.filter(task => task.status === 'PENDING');
-          this.completedTasks = tasks.filter(task => task.status === 'FINISHED');
-          return tasks;
-        }),
-        tap((tasks) => {
-          this.tasksUpdated.next([...tasks]);
-        })
-      );
+  getTasks(postsPerPage: number, currentPage: number, cmpltdTasksPerPage: number, finishedTaskPage: number, searchTerm?: string): Observable<{ tasks: any; totalTasks: number; completedTasks: any; totalFinishedTasks: number }> {
+    const queryParams = `?userId=${this.userId}&pagesize=${postsPerPage}&page=${currentPage}&pagesize2=${cmpltdTasksPerPage}&page2=${finishedTaskPage}&q=${searchTerm}`;
+  
+    return this.http.get<{ message: string; tasks: any[]; totalTasks: number; taskF: any[]; totalTasksF: number }>("http://localhost:3000/api/tasks" + queryParams)
+  .pipe(
+    map((taskData) => {
+      if (!taskData.tasks || taskData.tasks.length === 0) {
+        throw new Error("No tasks found");
+      }
+
+      const tasks = taskData.tasks.map(task => {
+        return {
+          id: task._id,
+          title: task.title,
+          content: task.content,
+          status: task.status,
+          userId: task.userId,
+        };
+      });
+
+      // Check if taskData.tasksF is defined and not null before using the map operator
+      const tasksF = taskData.taskF.map(task => {
+        return {
+          id: task._id,
+          title: task.title,
+          content: task.content,
+          status: task.status,
+          userId: task.userId,
+        };
+      });
+
+      this.tasks = tasks;
+      this.completedTasks = tasksF;
+
+      return {
+        tasks: tasks,
+        totalTasks: taskData.totalTasks,
+        completedTasks: tasksF,
+        totalFinishedTasks: taskData.totalTasksF
+      };
+    }),
+    tap((tasksData) => {
+      console.log(tasksData); // Log the return values
+      this.tasksUpdated.next([...tasksData.tasks]);
+    })
+  );
+
+      
   }
+  
 
   getTask(id: string) {
     console.log(id);
