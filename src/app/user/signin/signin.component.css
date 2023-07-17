@@ -9,3 +9,12 @@
     filter: blur(3px); /* Apply the blur effect to the background image */
     z-index: -1;
   }
+
+  a{
+    padding-top: 20px;
+  }
+
+  img{
+    height: 100px;
+    width: 210px;
+  }

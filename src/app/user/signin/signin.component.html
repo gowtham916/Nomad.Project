@@ -3,7 +3,7 @@
 </div>
 
 <div  class="container mt-5 mx-auto px-4 py-5 rounded" style="max-width: 300px; height: 450px; border: 1px solid #ccc;">
-    <img src="../../../../images/Nomadlogo.png" alt="">
+    <img src="../../../assets/logonomad.png" alt="">
     <h2 class="text-center mb-3">Sign in</h2>
     <form #sellerLogin="ngForm" (ngSubmit)="login(sellerLogin.value)"  novalidate>
       <div class="text-danger" *ngIf="loginFail">
@@ -34,6 +34,6 @@
         </div>
       </div>   
       <button type="submit" class="btn btn-primary btn-block mt-4" [disabled]="!sellerLogin.valid">Sign In</button>
-      
+      <a class="login" class="nav-link" (click)="openSignUp()"style="color: white;">Don't you have an account? Click here for signup</a>
     </form>
   </div>

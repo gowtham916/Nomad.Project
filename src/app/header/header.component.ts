@@ -52,6 +52,8 @@ export class HeaderComponent {
     this.router.navigate(['/']);
     this.userEntered = false;
     localStorage.removeItem('userEntered');
+    localStorage.removeItem('userName');
+    localStorage.removeItem('userId');
     this.user.logout();
   }
 

@@ -7,6 +7,8 @@ export class TitleCasePipe implements PipeTransform {
   transform(value: string): string {
     if (!value) return '';
 
-    return value.toLowerCase().split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
+    const firstSpaceIndex = value.indexOf(' ');
+    const firstName = firstSpaceIndex !== -1 ? value.slice(0, firstSpaceIndex) : value;
+    return firstName.toUpperCase();
   }
 }

@@ -40,18 +40,23 @@ export class TasksListComponent implements OnInit {
 
   getTasks(searchTerm?: string) {
     this.loading = true;
-
+  
     this.TasksService.getTasks(this.taskPerPage, this.currentPage, this.cmpltdTaksperPage, this.finishedTaskPage, searchTerm)
       .subscribe((transformedTasks) => {
         const { tasks, totalTasks, completedTasks, totalFinishedTasks } = transformedTasks;
-
-        this.TasksService.tasksUpdated.next([...tasks]);
-        this.totalTasks = totalTasks;
-        this.tasks = tasks;
-        this.compltedtasks = completedTasks;
-        this.totalFinishedTasks = totalFinishedTasks;
-
-        this.loading = false;
+  
+        
+        if (tasks.length === 0) {
+          this.loading = false;
+        } else {
+          this.TasksService.tasksUpdated.next([...tasks]);
+          this.totalTasks = totalTasks;
+          this.tasks = tasks;
+          this.compltedtasks = completedTasks;
+          this.totalFinishedTasks = totalFinishedTasks;
+  
+          this.loading = false; 
+        }
       });
   }
   

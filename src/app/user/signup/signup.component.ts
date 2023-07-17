@@ -49,7 +49,7 @@ export class SignupComponent implements OnInit {
   }
   
 
-  openSignIn(): void {
+  opensignIn(): void {
     this.router.navigate(['/']);
   }
 }
