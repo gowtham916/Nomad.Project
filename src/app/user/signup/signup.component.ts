@@ -30,7 +30,6 @@ export class SignupComponent implements OnInit {
 
   signUp(data: signUp): void {
     console.log('button clicked');
-    console.log(data);
     this.user.userSignUp(data)
       .pipe(
         catchError((error) => {
@@ -41,7 +40,6 @@ export class SignupComponent implements OnInit {
         })
       )
       .subscribe((result) => {
-        console.warn(result.body);
         if (result) {
           this.router.navigate(['/success']);
         }

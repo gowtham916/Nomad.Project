@@ -1,11 +1,10 @@
 <div class="loading-ring" *ngIf="loading"></div>
 <div class="background-image">
-  <!-- Place the blurred image as the background -->
+  
 </div>
 
-<mat-tab-group animationDuration="2000ms">
+<mat-tab-group animationDuration="2000ms" mat-align-tabs="center">
   <mat-tab class="tab1" label="Active tasks"> <div class="container">
-    <!-- <div class="articles-container"> -->
       <div class="left-column">
         <div class="content">
           <div class="title">
@@ -13,61 +12,41 @@
           </div>
           <div class="tasks">
             <div class="card" *ngFor="let task of tasks">
-              <h3>{{ task.title }}</h3> 
-              <p>{{ task.content }}</p>
+              <div class="title-container">
+                <h3>{{ task.title }}</h3>
+              </div>
+              <div class="content-container">
+                <p>{{ task.content }}</p>
+              </div>
               <div class="button-container">
                 <button (click)="finishedPosts(task.id)" class="button finish-button">Finish</button>
                 <button [routerLink]="'/creation/update/' + task.id" class="button edit-button">Edit</button>
-
               </div>
             </div>
            
             
-            <p class="info-text mat-body-1" *ngIf="tasks.length <= 0">No active tasks.</p>
+            <p class="info-text mat-body-1" *ngIf="tasks.length <= 0 && !loading">No active tasks.</p>
           </div>
-          <!-- <mat-paginator class="pagination2" [length]="tasks.length" [pageSizeOptions]="pageSizeOptions" (page)="onChangedPage($event)"  *ngIf="tasks.length > 0">
-          </mat-paginator>
-          
-           -->
            <mat-paginator class="pagination2" [length]="totalTasks" [pageSize]="taskPerPage" [pageSizeOptions]="pageSizeOptions" (page)="onChangedPage($event)"
            *ngIf="tasks.length > 0" animationDuration="2000ms"></mat-paginator>
-          <!-- <mat-paginator [length]="tasks.length" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions"></mat-paginator> -->
-          <!-- <ul class="pagination">
-            <li><a href="#">1</a></li>
-            <li><a href="#">2</a></li>
-            <li><a href="#">3</a></li>
-            
-          </ul> -->
         </div>
       </div>
-      
-      
-    <!-- </div> -->
   </div> </mat-tab>
-  <mat-tab class="tab2" label="Finished tasks"> <div class="right-column">
+  <mat-tab style="color: rgb(193, 9, 21);" label="Finished tasks"> <div class="right-column">
     <div class="content">
       <div class="title">
         <h2 class="tit">Finished tasks</h2>
       </div>
       <div class="tasks">
         <div class="card" *ngFor="let compltedtask of compltedtasks">
-          <h3>{{ compltedtask.title }}</h3>
-          <p>{{ compltedtask.content }}</p>
-          <button (click)="onDelete(compltedtask.id)" class="button delete-button">DELETE</button>
-
+          <div class="title-container"><h3>{{ compltedtask.title }}</h3></div>
+          <div class="content-container"><p>{{ compltedtask.content }}</p></div>
+          <div class="button-container"><button (click)="onDelete(compltedtask.id)" class="button delete-button">DELETE</button></div>
         </div>
-        <p class="info-text mat-body-1" *ngIf="compltedtasks.length <= 0">No finished tasks.</p>
+        <p class="info-text mat-body-1" *ngIf="compltedtasks.length <= 0 && !loading">No finished tasks.</p>
       </div>
       <mat-paginator class="pagination2" [length]="totalFinishedTasks" [pageSize]="cmpltdTaksperPage" [pageSizeOptions]="pageSizeOptions" (page)="onChangedPageF($event)"
-           *ngIf="tasks.length > 0" animationDuration="2000ms"></mat-paginator>
-      
-      <!-- <mat-paginator [length]="compltedtasks.length" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions"></mat-paginator> -->
-      <!-- <ul class="pagination">
-        <li><a href="#">1</a></li>
-        <li><a href="#">2</a></li>
-        <li><a href="#">3</a></li>
-        
-      </ul> -->
+           *ngIf="compltedtasks.length > 0" animationDuration="2000ms"></mat-paginator>
     </div>
   </div> </mat-tab>
   

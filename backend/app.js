@@ -10,13 +10,15 @@ const Task = require("./models/task");
 const app = express();
 const cors = require("cors");
 
-mongoose
-  .connect("mongodb+srv://kukku:dtBC8NzRhPSiL8Rw@cluster0.d94ztuq.mongodb.net/Nomad?retryWrites=true&w=majority")
+mongoose.connect('mongodb://127.0.0.1:27017/Nomad', {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+})
   .then(() => {
-    console.log("Connected to database!");
+    console.log('Connected to database!');
   })
-  .catch(() => {
-    console.log("Connection failed!");
+  .catch((error) => {
+    console.log('Connection failed:', error);
   });
 
 app.use(cors());

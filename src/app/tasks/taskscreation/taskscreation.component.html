@@ -11,13 +11,16 @@
         </div>
         <div class="form-group">
           <label for="title">Task Title:</label>
-          <input class="form-control" type="text" id="title" name="title" ngModel required minlength="3" placeholder="Task Title" #title="ngModel">
+          <input class="form-control" type="text" id="title" name="title" ngModel required minlength="3" ngModel required maxlength="25" placeholder="Task Title" #title="ngModel">
           <div *ngIf="postForm.controls['title'].invalid && (postForm.controls['title'].dirty || postForm.controls['title'].touched)" class="text-danger">
             <div *ngIf="postForm.controls['title'].errors?.['required']">
               Task title is required.
             </div>
             <div *ngIf="postForm.controls['title'].errors?.['minlength']">
               Task title must be at least 3 characters long.
+            </div>
+            <div *ngIf="postForm.controls['title'].errors?.['maxlength']">
+              Task title must be less than 25 characters long.
             </div>
           </div>
         </div>

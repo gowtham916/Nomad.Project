@@ -29,9 +29,10 @@ export class TasksService {
     return this.http.get<{ message: string; tasks: any[]; totalTasks: number; taskF: any[]; totalTasksF: number }>("http://localhost:3000/api/tasks" + queryParams)
   .pipe(
     map((taskData) => {
-      if (!taskData.tasks || taskData.tasks.length === 0) {
-        throw new Error("No tasks found");
-      }
+      // if (!taskData.tasks || taskData.tasks.length === 0) {
+      //   throw new Error("No tasks found");
+       
+      // }
 
       const tasks = taskData.tasks.map(task => {
         return {
@@ -56,6 +57,8 @@ export class TasksService {
 
       this.tasks = tasks;
       this.completedTasks = tasksF;
+      console.log(this.tasks);
+      console.log(this.completedTasks);
 
       return {
         tasks: tasks,
@@ -94,14 +97,7 @@ export class TasksService {
   const task: any = { _id: id, status: status };
   console.warn("Request payload:", JSON.stringify(task));
 
-  this.http.patch("http://localhost:3000/api/tasks/" + id, task)
-    .subscribe(respo => {
-      const updatedTasks = [...this.tasks];
-      const oldTaskIndex = updatedTasks.findIndex(t => t.id === task._id);
-      updatedTasks[oldTaskIndex].status = task.status;
-      this.tasks = updatedTasks;
-      this.tasksUpdated.next([...this.tasks]);
-    });
+  return this.http.patch("http://localhost:3000/api/tasks/" + id, task);
 }
 
 deletePost(taskId: string) { 

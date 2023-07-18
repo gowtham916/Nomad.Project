@@ -71,7 +71,7 @@ export class UserService {
 
   getUserName(): Observable<string> {
     return this.userName.asObservable().pipe(
-      tap(userName => console.log('Emitted userId:', userName))
+      tap(userName => console.log('Emitted userName:', userName))
     );
   }
 
@@ -82,7 +82,6 @@ export class UserService {
   }
 
   userSignUp(user: signUp): Observable<any> {
-    console.log('service called');
     return this.http.post('http://localhost:3000/api/users', user, { observe: 'response' });
   }
 

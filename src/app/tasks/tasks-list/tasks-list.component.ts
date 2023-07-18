@@ -33,30 +33,23 @@ export class TasksListComponent implements OnInit {
     
     this.search.searchTerm$.subscribe(searchTerm=>{
       this.searchTerm = searchTerm
-      this.getTasks(this.searchTerm);
+      this.getTasks();
     })
     
   }
 
-  getTasks(searchTerm?: string) {
+  getTasks() {
     this.loading = true;
   
-    this.TasksService.getTasks(this.taskPerPage, this.currentPage, this.cmpltdTaksperPage, this.finishedTaskPage, searchTerm)
+    this.TasksService.getTasks(this.taskPerPage, this.currentPage, this.cmpltdTaksperPage, this.finishedTaskPage, this.searchTerm)
       .subscribe((transformedTasks) => {
+        this.loading = false;
         const { tasks, totalTasks, completedTasks, totalFinishedTasks } = transformedTasks;
-  
-        
-        if (tasks.length === 0) {
-          this.loading = false;
-        } else {
-          this.TasksService.tasksUpdated.next([...tasks]);
-          this.totalTasks = totalTasks;
-          this.tasks = tasks;
-          this.compltedtasks = completedTasks;
-          this.totalFinishedTasks = totalFinishedTasks;
-  
-          this.loading = false; 
-        }
+        this.totalTasks = totalTasks;
+        this.tasks = tasks;
+        this.compltedtasks = completedTasks;
+        this.totalFinishedTasks = totalFinishedTasks;
+      
       });
   }
   
@@ -65,21 +58,21 @@ export class TasksListComponent implements OnInit {
     
     this.currentPage = pageData.pageIndex + 1;
     this.taskPerPage = pageData.pageSize;
-    this.getTasks(this.searchTerm);
+    this.getTasks();
   }
 
   onChangedPageF(pageData: PageEvent) {
     
     this.finishedTaskPage = pageData.pageIndex + 1;
     this.cmpltdTaksperPage = pageData.pageSize;
-    this.getTasks(this.searchTerm);
+    this.getTasks();
   }
   
 
   onDelete(cmptdId: string) {
     this.TasksService.deletePost(cmptdId).subscribe(
       (response)=>{
-        this.getTasks(this.searchTerm);
+        this.getTasks();
       },(error)=>{
         console.error(error);
       }
@@ -91,12 +84,13 @@ export class TasksListComponent implements OnInit {
     if(task){
       task.status = "FINISHED";
       console.warn(task.status);
-      this.TasksService.updatetaskStatus(task.id,task.status);
+      this.TasksService.updatetaskStatus(task.id,task.status).subscribe(res=>{
+        this.getTasks();
+      })
     }else{
       console.warn("Post not found");
       
     }
-    this.getTasks(this.searchTerm);
   }
   ngOnDestroy() {
     this.taskssub.unsubscribe();

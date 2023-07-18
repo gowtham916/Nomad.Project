@@ -56,25 +56,96 @@
   margin: 0 20px;
 }
 
-.card {
-  background-color: rgba(61, 34, 34, 0.8);
-  
-  margin-bottom: 20px;
-  margin-right: 10px;
-  padding: 10px;
-  max-width: 180px;
-  min-width: 180px;
-  
-  min-height: 180px;
-  width: 100%;
-  box-sizing: border-box;
-  color: rgb(178, 175, 175);
-}
-
 .tasks {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #808080 rgba(0, 0, 0, 0.2);
 }
+.tasks::-webkit-scrollbar {
+  width: 6px; /* Width of the scrollbar */
+}
+.tasks::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.2);
+}
+.tasks::-webkit-scrollbar-thumb {
+  background-color: #808080;
+  border-radius: 3px;
+}
+
+.card {
+  background-color: rgba(61, 34, 34, 0.8);
+  margin-bottom: 20px;
+  margin-right: 10px;
+  max-width: 180px;
+  min-width: 180px;
+  max-height: 250px;
+  min-height: 180px;
+  color: rgb(178, 175, 175);
+  display: flex;
+  flex-direction: column;
+}
+
+.title-container {
+  padding: 10px;
+  box-sizing: border-box;
+  max-height: 25%;
+
+}
+h3{
+  line-height: 1.5;
+}
+
+.content-container {
+  padding: 10px;
+  box-sizing: border-box;
+  flex-grow: 1;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #808080 rgba(0, 0, 0, 0.2);
+}
+.content-container::-webkit-scrollbar {
+  width: 6px; /* Width of the scrollbar */
+}
+.content-container::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.2);
+}
+.content-container::-webkit-scrollbar-thumb {
+  background-color: #808080;
+  border-radius: 3px;
+}
+.content-container p {
+  margin: 0;
+}
+
+.button-container {
+  padding: 10px;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: space-between;
+  max-height: 15%;
+}
+
+.button {
+  display: inline-block;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 3px;
+  color: white;
+  cursor: pointer;
+}
+
+.finish-button {
+  background-color: #4CAF50;
+}
+
+.edit-button {
+  background-color: #008CBA;
+}
+
 
 
 .title{
@@ -183,4 +254,8 @@
 }
 
 
-
+::ng-deep .mat-mdc-tab.mdc-tab--active .mdc-tab__text-label {
+  color: white;
+  font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  
+}
