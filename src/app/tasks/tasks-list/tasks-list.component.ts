@@ -6,10 +6,12 @@ import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { SearchComponent } from 'src/app/search/search.component';
 import { HeaderComponent } from 'src/app/header/header.component'
 import { SearchService } from 'src/app/search.service';
+import { DateAgoPipe } from '../../pipes/date-ago.pipe';
 @Component({
   selector: 'app-tasks-list',
   templateUrl: './tasks-list.component.html',
-  styleUrls: ['./tasks-list.component.css']
+  styleUrls: ['./tasks-list.component.css'],
+  providers: [DateAgoPipe]
 })
 export class TasksListComponent implements OnInit {
   loading: boolean = false;

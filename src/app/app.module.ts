@@ -26,6 +26,7 @@ import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { SearchComponent } from './search/search.component';
 import { FileUploadComponent } from './file-upload/file-upload.component';
+import { DateAgoPipe } from './pipes/date-ago.pipe';
 @NgModule({
   declarations: [
     AppComponent,
@@ -39,6 +40,7 @@ import { FileUploadComponent } from './file-upload/file-upload.component';
     UpdateComponent,
     SearchComponent,
     FileUploadComponent,
+    DateAgoPipe,
     
   ],
   imports: [

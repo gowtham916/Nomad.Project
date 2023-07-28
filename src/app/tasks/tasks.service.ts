@@ -29,10 +29,7 @@ export class TasksService {
     return this.http.get<{ message: string; tasks: any[]; totalTasks: number; taskF: any[]; totalTasksF: number }>("http://localhost:3000/api/tasks" + queryParams)
   .pipe(
     map((taskData) => {
-      // if (!taskData.tasks || taskData.tasks.length === 0) {
-      //   throw new Error("No tasks found");
-       
-      // }
+      console.log(taskData);
 
       const tasks = taskData.tasks.map(task => {
         return {
@@ -41,10 +38,11 @@ export class TasksService {
           content: task.content,
           status: task.status,
           userId: task.userId,
+          time:task.timestamp
         };
       });
 
-      // Check if taskData.tasksF is defined and not null before using the map operator
+      console.log(tasks);
       const tasksF = taskData.taskF.map(task => {
         return {
           id: task._id,
@@ -52,9 +50,10 @@ export class TasksService {
           content: task.content,
           status: task.status,
           userId: task.userId,
+          time:task.timestamp
         };
       });
-
+      console.log(tasksF);
       this.tasks = tasks;
       this.completedTasks = tasksF;
       console.log(this.tasks);
@@ -97,7 +96,7 @@ export class TasksService {
   const task: any = { _id: id, status: status };
   console.warn("Request payload:", JSON.stringify(task));
 
-  return this.http.patch("http://localhost:3000/api/tasks/" + id, task);
+  return this.http.put("http://localhost:3000/api/tasks/finish/" + id, task);
 }
 
 deletePost(taskId: string) { 
@@ -135,7 +134,8 @@ deletePost(taskId: string) {
   }
   uploadBulkData(formData: FormData) {
     console.log(formData.get('file'));
-    return this.http.post<{ message: string; taskId: string }>("http://localhost:3000/api/tasks/bulk", formData);
+    console.log(this.userId);
+    return this.http.post<{ message: string; taskId: string }>(`http://localhost:3000/api/tasks/bulk?userId=${this.userId}`, formData);
   }
   
  

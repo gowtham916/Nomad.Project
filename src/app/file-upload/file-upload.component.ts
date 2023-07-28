@@ -52,7 +52,7 @@ export class FileUploadComponent implements OnDestroy,OnInit {
     }
 
    
-    const templateNameRegex = /^nomad_(\w+)_template\.xlsx$/;
+    const templateNameRegex = /^nomad_template\.xlsx$/;
     const match = file.name.match(templateNameRegex);
 
     if (!match) {
@@ -97,17 +97,17 @@ export class FileUploadComponent implements OnDestroy,OnInit {
       console.log(rowsJSON);
   
       
-      const userIdColumn = rows.map(row => row[0]);
-      console.log(userIdColumn);
+      // const userIdColumn = rows.map(row => row[0]);
+      // console.log(userIdColumn);
      
-      const filteredUserIdColumn = userIdColumn.filter((userId) => typeof userId === 'string' && userId.trim() !== '');
-      console.log(filteredUserIdColumn);
-      console.log(expectedUserId);
+      // const filteredUserIdColumn = userIdColumn.filter((userId) => typeof userId === 'string' && userId.trim() !== '');
+      // console.log(filteredUserIdColumn);
+      // console.log(expectedUserId);
 
-      if (!filteredUserIdColumn.some((userId) => userId === expectedUserId)) {
-        console.error('Uploaded file does not match the expected user ID.');
-        return;
-      }
+      // if (!filteredUserIdColumn.some((userId) => userId === expectedUserId)) {
+      //   console.error('Uploaded file does not match the expected user ID.');
+      //   return;
+      // }
   
      
       const formData = new FormData();
@@ -144,7 +144,7 @@ export class FileUploadComponent implements OnDestroy,OnInit {
   
   
   private isTemplateValid(fileData: string): boolean {
-    const expectedHeaders = ['UserID', 'Title', 'Content', 'Status'];
+    const expectedHeaders = ['Title', 'Content', 'Status'];
     const workbook: XLSX.WorkBook = XLSX.read(fileData, { type: 'binary' });
     const worksheet: XLSX.WorkSheet = workbook.Sheets['template'];
     const headers: string[] = XLSX.utils.sheet_to_json(worksheet, { header: 1 })[0] as string[];
@@ -167,13 +167,13 @@ export class FileUploadComponent implements OnDestroy,OnInit {
 
   async onDownloadTemplate() {
     const templateData = [
-      ['UserID', 'Title', 'Content', 'Status'],
+      ['Title', 'Content', 'Status'],
     ];
 
     const worksheet: XLSX.WorkSheet = XLSX.utils.aoa_to_sheet(templateData);
     const workbook: XLSX.WorkBook = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(workbook, worksheet, 'template');
     const userId = this.userId$.getValue();
-    XLSX.writeFile(workbook, `nomad_${userId}_template.xlsx`);
+    XLSX.writeFile(workbook, `nomad_template.xlsx`);
   }
 }

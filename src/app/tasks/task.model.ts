@@ -3,5 +3,6 @@ export interface Task {
     title: string;
     content: string;
     status:string;
-    userId:string
+    userId:string;
+    time:Date
   }

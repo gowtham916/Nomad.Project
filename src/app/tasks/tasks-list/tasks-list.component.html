@@ -15,6 +15,9 @@
               <div class="title-container">
                 <h3>{{ task.title }}</h3>
               </div>
+              <div class="time-container">
+                <p>created: {{ task.time|dateAgo}}</p>
+              </div>
               <div class="content-container">
                 <p>{{ task.content }}</p>
               </div>
@@ -40,6 +43,9 @@
       <div class="tasks">
         <div class="card" *ngFor="let compltedtask of compltedtasks">
           <div class="title-container"><h3>{{ compltedtask.title }}</h3></div>
+          <div class="time-container">
+            <p>Finished: {{ compltedtask.time|dateAgo}}</p>
+          </div>
           <div class="content-container"><p>{{ compltedtask.content }}</p></div>
           <div class="button-container"><button (click)="onDelete(compltedtask.id)" class="button delete-button">DELETE</button></div>
         </div>

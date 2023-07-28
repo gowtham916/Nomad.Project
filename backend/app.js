@@ -84,14 +84,18 @@ app.post("/api/users", (req, res, next) => {
 
 app.post("/api/tasks", async (req, res, next) => {
   try {
-    console.log(req.body); 
+    console.log(req.body);
+    const currentTime = new Date().toISOString(); 
+    console.log(currentTime);
     const task = new Task({
       userId: req.body.userId,
       title: req.body.title,
       content: req.body.content,
-      status: req.body.status
-    });
+      status: req.body.status,
+      timestamp: currentTime
 
+    });
+    console.log(task);
     const createdtask = await task.save();
     res.status(201).json({
       message: "Post added successfully",
@@ -108,7 +112,9 @@ app.post('/api/tasks/bulk', upload.single('file'), async (req, res, next) => {
       return res.status(400).json({ message: 'No file uploaded' });
     }
     const file = req.file;
+    const userId = req.query.userId;
     console.log('Request File:', file);
+    console.log(req.query.userId);
     fs.readFile(file.path,'binary',async (err, fileData)=>{
       if (err) {
         console.error('Error reading file:', err);
@@ -121,12 +127,14 @@ app.post('/api/tasks/bulk', upload.single('file'), async (req, res, next) => {
       }
       const jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
       console.log('Parsed JSON Data:', jsonData);
+      const currentTime = new Date().toISOString();
       const tasks = jsonData.map((row) => {
         return {
-          userId: row[0],
-          title: row[1],
-          content: row[2],
-          status: row[3],
+          userId: userId,
+          title: row[0],
+          content: row[1],
+          status: row[2],
+          timestamp: currentTime
         };
       });
       console.log('Extracted tasks:', tasks);
@@ -222,12 +230,13 @@ app.get('/api/tasks/:id', async (req, res) => {
   }
 });
 
-app.patch("/api/tasks/:id", (req, res, next) => {
+app.put("/api/tasks/finish/:id", (req, res, next) => {
   const taskId = req.params.id;
   const newStatus = req.body.status;
+  const newTime = new Date().toISOString();
   console.warn(req.body);
 
-  Task.updateOne({ _id: taskId }, { status: newStatus })
+  Task.updateOne({ _id: taskId }, { status: newStatus ,timestamp:newTime})
     .then(result => {
       res.status(200).json({ message: "Update successful!" });
       console.log('updated');
@@ -241,7 +250,7 @@ app.put("/api/tasks/:id", (req, res, next) => {
   const taskId = req.params.id;
   const newTitle = req.body.title;
   const newContent = req.body.content;
-  Task.updateOne({ _id: taskId }, { title: newTitle, content: newContent })
+  Task.updateOne({ _id: taskId }, { title: newTitle ,content: newContent })
     .then(result => {
       res.status(200).json({ message: "Update successful!" });
       console.log('updated');
