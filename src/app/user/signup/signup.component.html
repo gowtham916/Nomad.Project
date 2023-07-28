@@ -2,17 +2,20 @@
   <!-- Place the blurred image as the background -->
 </div>
 
-<div class="container mt-5 mx-auto px-4 py-5 rounded" style="max-width: 300px; height: 450px; border: 1px solid #ccc;">
+<div class="container mt-5 mx-auto px-4 py-5 rounded" style="max-width: 300px; height: 490px; border: 1px solid #ccc;">
   <img src="../../../assets/logonomad.png" alt="">
   <h2 class="text-center mb-3">Sign Up</h2>
+
+  <div class="text-danger" style="height: 20px;"> 
+    <p *ngIf="signInError">You already have an account. Use another email.</p>
+  </div>
+
   <form #sellerSignUp="ngForm" (ngSubmit)="signUp(sellerSignUp.value)" novalidate>
-    <div class="text-danger" *ngIf="signInError">
-      You already have an account. Use another email.
-    </div>
+    
 
     <div class="form-group">
       <label for="name">Name:</label>
-      <input type="text" class="form-control" name="name" placeholder="Enter your name" ngModel required>
+      <input type="text" class="form-control" name="name" placeholder="Enter your name" ngModel required autocomplete="nope">
       <div *ngIf="sellerSignUp.controls['name'].invalid && (sellerSignUp.controls['name'].dirty || sellerSignUp.controls['name'].touched)" class="text-danger">
         <div *ngIf="sellerSignUp.controls['name']?.errors?.['required']">
           Name is required.

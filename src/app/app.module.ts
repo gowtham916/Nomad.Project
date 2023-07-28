@@ -25,6 +25,7 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { SearchComponent } from './search/search.component';
+import { FileUploadComponent } from './file-upload/file-upload.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -37,6 +38,7 @@ import { SearchComponent } from './search/search.component';
     TitleCasePipe,
     UpdateComponent,
     SearchComponent,
+    FileUploadComponent,
     
   ],
   imports: [

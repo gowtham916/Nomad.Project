@@ -133,6 +133,10 @@ deletePost(taskId: string) {
         this.tasksUpdated.next([...this.tasks]);
       });
   }
+  uploadBulkData(formData: FormData) {
+    console.log(formData.get('file'));
+    return this.http.post<{ message: string; taskId: string }>("http://localhost:3000/api/tasks/bulk", formData);
+  }
   
  
 }

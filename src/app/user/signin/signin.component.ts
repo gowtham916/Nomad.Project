@@ -27,13 +27,11 @@ export class SigninComponent implements OnInit {
     const token = localStorage.getItem('access_token'); 
 
     if (token) {
-      // User has a valid token, navigate to the "home" route
       this.router.navigate(['/home']);
     }
   }
 
   login(data: any): void {
-    console.log('button clicked');
     this.user.userLogin(data)
       .pipe(
         catchError((error) => {
@@ -44,12 +42,10 @@ export class SigninComponent implements OnInit {
       )
       .subscribe((result: any) => {
         if (result) {
-          console.log('login success');
           this.router.navigate(['/home']);
           this.user.setUserEntered(true);
         } else {
           this.loginFail = true;
-          console.warn(this.loginFail);
         }
       });
   }

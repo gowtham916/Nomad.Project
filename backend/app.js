@@ -3,13 +3,14 @@ const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const session = require("express-session");
 const bcrypt = require("bcryptjs");
-
 const User = require("./models/user");
 const Task = require("./models/task");
-
+const XLSX = require('xlsx');
 const app = express();
 const cors = require("cors");
-
+const multer = require('multer');
+const upload = multer({ dest: 'uploads/' });
+const fs = require('fs');
 mongoose.connect('mongodb://127.0.0.1:27017/Nomad', {
   useNewUrlParser: true,
   useUnifiedTopology: true,
@@ -72,10 +73,8 @@ app.post("/api/users", (req, res, next) => {
         })
         .catch(error => {
           if (error.code === 11000 && error.keyPattern && error.keyPattern.email) {
-            // Email already exists, handle the error
             res.status(400).json({ message: "Email already exists" });
           } else {
-            // Other error occurred, handle accordingly
             res.status(500).json({ message: "An error occurred" });
           }
         });
@@ -85,7 +84,7 @@ app.post("/api/users", (req, res, next) => {
 
 app.post("/api/tasks", async (req, res, next) => {
   try {
-    console.log(req.body); // Print req.body
+    console.log(req.body); 
     const task = new Task({
       userId: req.body.userId,
       title: req.body.title,
@@ -103,6 +102,49 @@ app.post("/api/tasks", async (req, res, next) => {
   }
 });
 
+app.post('/api/tasks/bulk', upload.single('file'), async (req, res, next) => {
+  try {
+    if (!req.file) {
+      return res.status(400).json({ message: 'No file uploaded' });
+    }
+    const file = req.file;
+    console.log('Request File:', file);
+    fs.readFile(file.path,'binary',async (err, fileData)=>{
+      if (err) {
+        console.error('Error reading file:', err);
+        return res.status(500).json({ message: 'Error reading file' });
+      }
+      const workbook = XLSX.read(fileData, { type: 'binary' });
+      const worksheet = workbook.Sheets['template'];
+      if (!worksheet) {
+        return res.status(400).json({ message: 'Invalid worksheet' });
+      }
+      const jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
+      console.log('Parsed JSON Data:', jsonData);
+      const tasks = jsonData.map((row) => {
+        return {
+          userId: row[0],
+          title: row[1],
+          content: row[2],
+          status: row[3],
+        };
+      });
+      console.log('Extracted tasks:', tasks);
+      const createdTasks = await Task.insertMany(tasks);
+      console.log('Created tasks:', createdTasks);
+      res.status(201).json({
+        message: 'Bulk data added successfully',
+        taskIds: createdTasks.map((task) => task._id),
+      });
+    })
+   
+  } catch (error) {
+    console.error('An error occurred:', error.message);
+    res.status(500).json({ message: 'An error occurred', error: error.message });
+  }
+});
+
+
 app.get('/api/tasks', async (req, res) => {
   const userId = req.query.userId;
   const pageSize = +req.query.pagesize;
@@ -112,12 +154,11 @@ app.get('/api/tasks', async (req, res) => {
   const searchTerm = req.query.q;
 
   try {
-
     const queryP = {
       userId: userId,
       status: "PENDING",
       $or: [
-        { title: { $regex: searchTerm, $options: "i" } }, 
+        { title: { $regex: searchTerm, $options: "i" } },
         { content: { $regex: searchTerm, $options: "i" } }
       ]
     };
@@ -126,11 +167,10 @@ app.get('/api/tasks', async (req, res) => {
       userId: userId,
       status: "FINISHED",
       $or: [
-        { title: { $regex: searchTerm, $options: "i" } }, // Search in the title field
-        { content: { $regex: searchTerm, $options: "i" } } // Search in the description field
+        { title: { $regex: searchTerm, $options: "i" } },
+        { content: { $regex: searchTerm, $options: "i" } }
       ]
     };
-    // Fetch pending tasks
     const pendingTasksQuery = Task.find(queryP);
 
     if (pageSize && currentPage) {
@@ -139,8 +179,6 @@ app.get('/api/tasks', async (req, res) => {
 
     const fetchedTasks = await pendingTasksQuery.exec();
     const count = await Task.count(queryP).exec();
-
-    // Fetch finished tasks
     const finishedTasksQuery = Task.find(queryF);
 
     if (pagesizeF && currentPageF) {
@@ -149,8 +187,6 @@ app.get('/api/tasks', async (req, res) => {
 
     const fetchedTasksF = await finishedTasksQuery.exec();
     const countF = await Task.count(queryF).exec();
-
-    // Check if the arrays have data
     const hasDataPendingTasks = fetchedTasks.length > 0;
     const hasDataFinishedTasks = fetchedTasksF.length > 0;
 
@@ -171,29 +207,25 @@ app.get('/api/tasks', async (req, res) => {
   }
 });
 
-
 app.get('/api/tasks/:id', async (req, res) => {
   const taskId = req.params.id;
   console.log(taskId);
   try {
-     const task = await Task.findOne({ _id: taskId }).exec();
-     if (task) {
-        res.status(200).json({ message: 'Success get one', tasks: task });
-     } else {
-        res.status(404).json({ message: 'Task not found' });
-     }
+    const task = await Task.findOne({ _id: taskId }).exec();
+    if (task) {
+      res.status(200).json({ message: 'Success get one', tasks: task });
+    } else {
+      res.status(404).json({ message: 'Task not found' });
+    }
   } catch (error) {
-     res.status(500).json({ message: 'Error retrieving task', error: error });
+    res.status(500).json({ message: 'Error retrieving task', error: error });
   }
 });
-
 
 app.patch("/api/tasks/:id", (req, res, next) => {
   const taskId = req.params.id;
   const newStatus = req.body.status;
   console.warn(req.body);
-  // console.warn(req.params);
-  // console.warn(req);
 
   Task.updateOne({ _id: taskId }, { status: newStatus })
     .then(result => {
@@ -205,19 +237,19 @@ app.patch("/api/tasks/:id", (req, res, next) => {
     });
 });
 
-app.put("/api/tasks/:id",(req, res, next)=>{
+app.put("/api/tasks/:id", (req, res, next) => {
   const taskId = req.params.id;
   const newTitle = req.body.title;
   const newContent = req.body.content;
-  Task.updateOne({ _id: taskId }, { title: newTitle }, {content: newContent})
-  .then(result => {
-    res.status(200).json({ message: "Update successful!" });
-    console.log('updated');
-  })
-  .catch(error => {
-    res.status(500).json({ message: "An error occurred during the update process." });
-  });
-})
+  Task.updateOne({ _id: taskId }, { title: newTitle, content: newContent })
+    .then(result => {
+      res.status(200).json({ message: "Update successful!" });
+      console.log('updated');
+    })
+    .catch(error => {
+      res.status(500).json({ message: "An error occurred during the update process." });
+    });
+});
 
 app.post("/api/users/oauth/token", (req, res, next) => {
   const email = req.body.username;
@@ -233,13 +265,9 @@ app.post("/api/users/oauth/token", (req, res, next) => {
       bcrypt.compare(password, user.password, (err, isMatch) => {
         if (isMatch) {
           console.log('Password is correct');
-
-          // Password is correct, handle the successful login here
           res.status(200).json({ message: "User found", user: user });
         } else {
           console.log('Password is incorrect');
-
-          // Password is incorrect
           res.status(401).json({ message: "Invalid password" });
         }
       });

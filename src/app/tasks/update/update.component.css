@@ -4,7 +4,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background-image: url('https://cdn.pixabay.com/photo/2016/01/09/18/27/journey-1130732_1280.jpg'); /* Replace with the path to your blurred background image */
+    background-image: url('../../../assets/bg.jpg'); /* Replace with the path to your blurred background image */
     background-size: cover;
     filter: blur(3px); /* Apply the blur effect to the background image */
     z-index: -1;
@@ -19,16 +19,30 @@
       justify-content: center;
       align-items: center;
       height: 100vh;
-      overflow: hidden; /* Add this line to hide the scrollbar */
+      overflow: hidden; 
     }
     
     .card {
-      width: 400px;
-      background-color: white;
+      width: 494px;
+      height: 330px;
+      background-color: #00ffff36;
       border-radius: 10px;
       box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
       padding: 20px;
     }
     
-    /* Additional styling for the card */
+    .custom-form {
+      max-width: 400px;
+      margin: 0 auto;
+    }
     
+    .form-group {
+      margin-bottom: 15px; 
+    }
+    form{
+    min-height: 300px;
+    max-height: 300px;
+    }
+    .model{
+      background-color: #00ffff36;
+    }

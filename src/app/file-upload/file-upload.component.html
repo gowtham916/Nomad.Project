@@ -1,0 +1,30 @@
+<div class="background-image">
+  
+</div>
+
+<div class="upload-container" *ngIf="!uploadInProgress">
+    <div class="file-upload">
+      <input id="file-input" type="file" accept=".xlsx" #fileInput />
+      <label for="file-input" class="file-label">
+        <span class="file-icon">
+          <i class="fas fa-cloud-upload-alt"></i>
+        </span>
+        <span class="file-text">Drag and drop Excel file here or click to browse</span>
+      </label>
+      <div class="file-preview">
+        <img id="preview-image" src="#" alt="File Preview" />
+        <span id="file-name"></span>
+      </div>
+      <button id="submit-button" class="submit-btn" (click)="onUpload()">Upload</button>
+  
+      
+      <button class="download-template-btn" (click)="onDownloadTemplate()">Template</button>
+    </div>
+  </div>
+  <div class="progress-loader" *ngIf="uploadInProgress">
+    <!-- You can use any library or custom CSS to display the loader here -->
+    Uploading...
+  </div>
+
+
+  

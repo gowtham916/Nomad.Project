@@ -4,11 +4,11 @@
 </div>
 
 <mat-tab-group animationDuration="2000ms" mat-align-tabs="center">
-  <mat-tab class="tab1" label="Active tasks"> <div class="container">
+  <mat-tab [labelClass] ="'xxx'" class="tab1" label="Active tasks"> <div class="container">
       <div class="left-column">
-        <div class="content">
+        <div class="content1">
           <div class="title">
-            <h2 class="tit">Active tasks</h2>
+           
           </div>
           <div class="tasks">
             <div class="card" *ngFor="let task of tasks">
@@ -27,15 +27,15 @@
             
             <p class="info-text mat-body-1" *ngIf="tasks.length <= 0 && !loading">No active tasks.</p>
           </div>
-           <mat-paginator class="pagination2" [length]="totalTasks" [pageSize]="taskPerPage" [pageSizeOptions]="pageSizeOptions" (page)="onChangedPage($event)"
-           *ngIf="tasks.length > 0" animationDuration="2000ms"></mat-paginator>
         </div>
+        <mat-paginator class="pagination2" [length]="totalTasks" [pageSize]="taskPerPage" [pageSizeOptions]="pageSizeOptions" (page)="onChangedPage($event)"
+        *ngIf="tasks.length > 0" animationDuration="2000ms"></mat-paginator>
       </div>
   </div> </mat-tab>
   <mat-tab style="color: rgb(193, 9, 21);" label="Finished tasks"> <div class="right-column">
-    <div class="content">
+    <div class="content2">
       <div class="title">
-        <h2 class="tit">Finished tasks</h2>
+       
       </div>
       <div class="tasks">
         <div class="card" *ngFor="let compltedtask of compltedtasks">

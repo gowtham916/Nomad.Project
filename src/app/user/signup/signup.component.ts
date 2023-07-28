@@ -29,7 +29,6 @@ export class SignupComponent implements OnInit {
  
 
   signUp(data: signUp): void {
-    console.log('button clicked');
     this.user.userSignUp(data)
       .pipe(
         catchError((error) => {

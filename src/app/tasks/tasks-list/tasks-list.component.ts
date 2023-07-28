@@ -17,11 +17,11 @@ export class TasksListComponent implements OnInit {
   compltedtasks : Task[] = [];
   totalTasks = 0;
   totalFinishedTasks = 0;
-  taskPerPage = 3;
-  cmpltdTaksperPage = 3;
+  taskPerPage = 5;
+  cmpltdTaksperPage = 5;
   currentPage = 1;
   finishedTaskPage = 1;
-  pageSizeOptions = [3, 5, 7];
+  pageSizeOptions = [5, 10, 15];
   searchTerm!: string;
   public tasksUpdated = new Subject<Task[]>();
   public cmpltdTasksUpdated = new Subject<Task[]>();

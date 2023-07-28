@@ -1,5 +1,5 @@
 <div class="background-image">
-  <!-- Place the blurred image as the background -->
+  
 </div>
 
 <div class="card-container">
@@ -34,6 +34,7 @@
           </div>
         </div>
         <button class="btn btn-primary btn-block mt-4" type="submit" [disabled]="!postForm.valid">Save Task</button>
+        <button style="margin-left: 10px;color: green;" class="btn btn-warning btn-block mt-4" (click)="openbulkAdd()" >Add More</button>
       </form>
     </div>
   </div>

@@ -1,25 +1,11 @@
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 .background-image {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background-image: url('https://cdn.pixabay.com/photo/2016/01/09/18/27/journey-1130732_1280.jpg'); /* Replace with the path to your blurred background image */
+  background-image: url('../../../assets/bg.jpg'); /* Replace with the path to your blurred background image */
   background-size: cover;
   filter: blur(3px); /* Apply the blur effect to the background image */
   z-index: -1;
@@ -41,9 +27,6 @@
 
 .left-column,
 .right-column {
- 
-  /* max-width: 50%;
-  min-width: 50%; */
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -55,15 +38,30 @@
   background-color: #000;
   margin: 0 20px;
 }
+.content1{
+   justify-content: center;
+   align-items: center;
+   max-width: 1010px;
+   min-width: 1010px;
+}
+.content2{
+  justify-content: center;
+  align-items: center;
+ 
+  max-width: 1010px;
+  min-width: 1010px;
+}
+
 
 .tasks {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-  overflow-y: auto;
-  scrollbar-width: thin;
-  scrollbar-color: #808080 rgba(0, 0, 0, 0.2);
+  max-width: 100%;
+  min-width: 100%;
+  /* justify-content: center; */
+  /* align-items: center; */
+  /* overflow-y: auto; */
+ 
 }
 .tasks::-webkit-scrollbar {
   width: 6px; /* Width of the scrollbar */
@@ -77,17 +75,21 @@
 }
 
 .card {
-  background-color: rgba(61, 34, 34, 0.8);
+  background-color:#48504bab; /* New background color */
   margin-bottom: 20px;
   margin-right: 10px;
   max-width: 180px;
   min-width: 180px;
   max-height: 250px;
   min-height: 180px;
-  color: rgb(178, 175, 175);
+  color:#f4f0f0; /* New text color */
   display: flex;
   flex-direction: column;
+  border-radius: 3px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Adding a shadow to the border */
 }
+
+
 
 .title-container {
   padding: 10px;
@@ -163,13 +165,12 @@ h3{
 /* Button Styles */
 /* Button Styles */
 .button {
-  background-color: transparent;
-  border: 1px solid #555555;
+  background-color:  rgba(91, 136, 234, 0.988);
   border-radius: 3px;
-  color: rgb(178, 175, 175);
+  color: rgb(253, 253, 253);
   padding: 3px 8px;
   transition: background-color 0.3s, color 0.3s;
-  
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 .button-container{
  max-height: 20%;
@@ -196,7 +197,7 @@ h3{
 
 .pagination2{
   background-color: transparent;
-  color: rgb(178, 175, 175);
+  color: rgb(15, 15, 15);
 }
 
 .pagination li {
@@ -253,9 +254,38 @@ h3{
   100% { transform: rotate(360deg); }
 }
 
-
 ::ng-deep .mat-mdc-tab.mdc-tab--active .mdc-tab__text-label {
-  color: white;
-  font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-  
+  color: white !important;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif !important;
+  font-size: 25px !important;
+}
+
+::ng-deep .mat-mdc-tab.mdc-tab--inactive .mdc-tab__text-label {
+  color: rgb(50, 15, 15) !important;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif !important;
+  font-size: 25px !important;
+}
+:host ::ng-deep .mat-mdc-tab {
+  scrollbar-width: thin !important;
+  scrollbar-color: #808080 rgba(0, 0, 0, 0.2) !important;
+}
+
+:host ::ng-deep .mat-mdc-tab::-webkit-scrollbar {
+  width: 6px !important;
+}
+
+:host ::ng-deep .mat-mdc-tab::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.2) !important;
+}
+
+:host ::ng-deep .mat-mdc-tab::-webkit-scrollbar-thumb {
+  background-color: #808080 !important;
+  border-radius: 3px !important;
+}
+
+.finish-button{
+background-color: #4CAF50;
+}
+.delete-button{
+  background-color: red;
 }
